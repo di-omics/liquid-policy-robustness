@@ -115,9 +115,11 @@ seeds.
 5. Fine-tune Liquid AI's open vision-language model
    [LFM2.5-VL-450M](https://huggingface.co/LiquidAI/LFM2.5-VL-450M) to turn camera
    images of the same arm into torques, and test it with the same kind of noise applied
-   to the images. It has 449 million parameters and ships Apple-silicon (MLX) builds;
-   if the laptop is too slow, rent a GPU by the hour. Its license is the LFM Open
-   License v1.0.
+   to the images. It has 449 million parameters and ships Apple-silicon (MLX) builds.
+   Its license is the LFM Open License v1.0. [STEP5_FEASIBILITY.md](STEP5_FEASIBILITY.md)
+   measures what runs on an M5 laptop: inference and a frozen-model stage fit, while
+   five LoRA fine-tuning runs take 37-53 hours there, or an estimated $5-20 on a rented
+   24 GB GPU.
 6. Write-up: what held, what did not, and what remains uncertain.
 
 ## Run it
