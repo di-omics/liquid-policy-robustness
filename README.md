@@ -162,7 +162,8 @@ TODO in `common.py` filled in first, and checks it before the sweep starts.
 
 ## Notes
 
-The lab notebook (`NOTEBOOK.md`) records each prediction before the run that tests
-it. `robot-policy-evals` will train a policy on this arm with reinforcement learning
+The lab notebook (`NOTEBOOK.md`) holds the questions and predictions for each step. A
+prediction is written before the run that tests it. The entries are still open.
+`robot-policy-evals` will train a policy on this arm with reinforcement learning
 (Stable-Baselines3). This repo imitates a scripted teacher instead, so it does not
 depend on that one.
