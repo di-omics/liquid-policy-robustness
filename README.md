@@ -2,15 +2,15 @@
 
 When a robot arm's sensors get noisy, does a liquid neural network keep controlling it
 better than an ordinary network of the same size? This repo tests that claim on a
-simulated two-joint arm. The networks have about the same number of parameters, each
-one is trained five times, and all are scored on the same held-out episodes.
+simulated 2-joint arm. The networks have about the same number of parameters, each
+one is trained 5 times, and all are scored on the same held-out episodes.
 
 Status: started 2026-10-18. Steps 1 and 2 run. Step 3 waits on the predictions in
 `NOTEBOOK.md`.
 
 ![scripted teacher on Reacher-v5](media/expert.gif)
 
-*The scripted teacher on three training episodes of Reacher-v5, top-down view at
+*The scripted teacher on 3 training episodes of Reacher-v5, top-down view at
 half speed. Pink is the arm's base and red the target; the fingertip is the free end
 of the arm.*
 
@@ -31,7 +31,7 @@ camera frames offline, and report that the liquid networks' outputs drifted leas
 This repo asks a closed-loop version of that question, on the arm's state readings
 instead of camera images.
 
-Two simpler explanations could produce the same effect, so the comparison controls for
+There are 2 simpler explanations that could produce the same effect, so the comparison controls for
 both:
 
 1. **Memory.** A network that remembers the last few steps can average noise away.
@@ -65,12 +65,12 @@ uses the Jacobian teacher.
 Because no learning is involved, the teacher gives exact labels to imitate and a
 reference line for the noise test.
 
-**Students.** Four networks, each trained to copy the teacher's torques from the same
+**Students.** 4 networks, each trained to copy the teacher's torques from the same
 500 clean demonstration episodes (behavior cloning):
 
 | name | what it is | parameters that can change the output |
 |---|---|---|
-| `mlp` | two hidden layers of 64, no memory | 4,994 |
+| `mlp` | 2 hidden layers of 64, no memory | 4,994 |
 | `lstm` | LSTM, 29 hidden units | 4,816 |
 | `cfc` | CfC liquid network: one 40-unit input layer, then 22 fully connected liquid neurons | 4,974 |
 | `ncp` | CfC neurons with sparse neural-circuit-policy wiring, 40 neurons | 4,986 (5,618 trainable, of which the wiring holds 632 at zero) |
@@ -80,7 +80,7 @@ teacher uses; `train.py` prints the largest torque each network produces and war
 it falls short. `cfc` and `ncp` differ in more than wiring: `cfc` also has the 40-unit
 input layer, so a gap between them is not a test of wiring alone. The wiring masks
 only the main input weights of each layer; the time-constant gates and the
-connections within a layer stay dense. All five `ncp` runs share one random wiring.
+connections within a layer stay dense. All 5 `ncp` runs share one random wiring.
 
 Every student gets the same optimizer, learning-rate schedule, batch size and 300
 passes over the data, and keeps the weights with the lowest error on the validation
@@ -97,14 +97,14 @@ from the noisy observation. `plot.py` draws mean and median final distance again
 noise, and prints each network's difference from the LSTM with a 95% interval.
 
 **Seeds.** Demonstrations come from seeds 0-499, model selection from 500-599, and every
-reported number from 1000-1099. Intervals are taken across the five training runs of
+reported number from 1000-1099. Intervals are taken across the 5 training runs of
 each network, so they leave out the variation from using only these 100 evaluation
 seeds.
 
 ## Plan
 
 1. Scripted teacher and demonstrations. (`collect.py`)
-2. Train the four students, five training runs each. (`train.py`)
+2. Train the 4 students, 5 training runs each. (`train.py`)
 3. Noise sweep, with the deciding number and the predictions written first.
    (`evaluate.py`, `plot.py`)
 4. Take the result apart: add noise to one group of readings at a time (angles,
@@ -118,7 +118,7 @@ seeds.
    to the images. It has 449 million parameters and ships Apple-silicon (MLX) builds.
    Its license is the LFM Open License v1.0. [STEP5_FEASIBILITY.md](STEP5_FEASIBILITY.md)
    measures what runs on an M5 laptop: inference and a frozen-model stage fit, while
-   five LoRA fine-tuning runs take 37-53 hours there, or an estimated $5-20 on a rented
+   5 LoRA fine-tuning runs take 37-53 hours there, or an estimated $5-20 on a rented
    24 GB GPU.
 6. Write-up: what held, what did not, and what remains uncertain.
 
@@ -142,7 +142,7 @@ uv run evaluate.py
 uv run plot.py
 ```
 
-Training all 20 networks takes about 20 minutes on an M5 laptop CPU, mostly the two
+Training all 20 networks takes about 20 minutes on an M5 laptop CPU, mostly the 2
 liquid networks; evaluation takes about a minute. `evaluate.py` needs the one-line
 TODO in `common.py` filled in first, and checks it before the sweep starts.
 
